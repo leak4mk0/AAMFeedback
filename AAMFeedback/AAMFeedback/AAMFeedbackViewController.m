@@ -216,13 +216,13 @@ static BOOL _alwaysUseMainBundle = NO;
 
                 self.descriptionPlaceHolder = [[UILabel alloc] initWithFrame:CGRectInset(cell.contentView.frame, textViewMargin, 5)];
                 self.descriptionPlaceHolder.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
+                self.descriptionPlaceHolder.backgroundColor = [UIColor clearColor];
                 self.descriptionPlaceHolder.font = [UIFont systemFontOfSize:16];
                 self.descriptionPlaceHolder.text = NSLocalizedStringFromTableInBundle(@"AAMFeedbackDescriptionPlaceholder", @"AAMLocalizable", [AAMFeedbackViewController bundle], nil);
                 self.descriptionPlaceHolder.textColor = [UIColor lightGrayColor];
                 self.descriptionPlaceHolder.numberOfLines = 0;
                 self.descriptionPlaceHolder.userInteractionEnabled = NO;
                 [cell.contentView addSubview:self.descriptionPlaceHolder];
-                [self.descriptionPlaceHolder sizeToFit];
 
                 [self _updatePlaceholder];
             }
@@ -321,6 +321,14 @@ static BOOL _alwaysUseMainBundle = NO;
 }
 
 
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    [self _updatePlaceholder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    [self _updatePlaceholder];
+}
+
 - (void)textViewDidChange:(UITextView *) textView {
     //Magic for updating Cell height
     [self.tableView beginUpdates];
@@ -387,11 +395,7 @@ static BOOL _alwaysUseMainBundle = NO;
 }
 
 - (void)_updatePlaceholder {
-    if ([self.descriptionTextView.text length] > 0) {
-        self.descriptionPlaceHolder.hidden = YES;
-    } else {
-        self.descriptionPlaceHolder.hidden = NO;
-    }
+    self.descriptionPlaceHolder.hidden = self.descriptionTextView.isFirstResponder || self.descriptionTextView.text.length > 0;
 }
 
 - (NSString *)_feedbackSubject {
