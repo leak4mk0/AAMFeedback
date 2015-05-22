@@ -214,7 +214,7 @@ static BOOL _alwaysUseMainBundle = NO;
                 self.descriptionTextView.text = self.descriptionText;
                 [cell.contentView addSubview:self.descriptionTextView];
 
-                self.descriptionPlaceHolder = [[UILabel alloc] initWithFrame:CGRectInset(cell.contentView.frame, textViewMargin, 5)];
+                self.descriptionPlaceHolder = [[UILabel alloc] initWithFrame:CGRectInset(cell.contentView.frame, textViewMargin, 0)];
                 self.descriptionPlaceHolder.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
                 self.descriptionPlaceHolder.backgroundColor = [UIColor clearColor];
                 self.descriptionPlaceHolder.font = [UIFont systemFontOfSize:16];
